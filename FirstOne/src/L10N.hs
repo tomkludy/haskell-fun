@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell, OverloadedStrings, MultiParamTypeClasses #-}
+{-# LANGUAGE CPP, TemplateHaskell, OverloadedStrings, MultiParamTypeClasses #-}
 -----------------------------------------------------------------------------
 --
 -- Module      :  L10N
@@ -40,13 +40,19 @@ getLocalesFromEnvironment = do
     let systemLocale = replace "_" "-" $ pack $ takeWhile (/= '.') lang
     return [systemLocale]
 
-	
 -- Get locale, Windows version --
 -- Prefers the user's locale, then the system's locale.
+
+
+#if defined(mingw32_HOST_OS) || defined(__MINGW32__)
 foreign import stdcall unsafe "GetUserDefaultLocaleName"
     getUserDefaultLocaleName :: CWString -> Int -> IO Int
 foreign import stdcall unsafe "GetSystemDefaultLocaleName"
     getSystemDefaultLocaleName :: CWString -> Int -> IO Int
+#else
+getUserDefaultLocaleName = undefined
+getSystemDefaultLocaleName = undefined
+#endif
 
 maxLocaleChars = 85 -- Hardcoded constand in the Windows API
 maxLocaleBytes = 2*maxLocaleChars  -- UCS-2 encoded
@@ -66,11 +72,11 @@ systemDefaultLocaleName = allocaBytes maxLocaleBytes $ \ptr -> do
         else peekCWString ptr
 
 getLocalesFromWindows = do
-	userLocale <- userDefaultLocaleName
-	systemLocale <- systemDefaultLocaleName
-	let userLocaleT = pack userLocale
-	let systemLocaleT = pack systemLocale
-	return [userLocaleT,systemLocaleT]
+    userLocale <- userDefaultLocaleName
+    systemLocale <- systemDefaultLocaleName
+    let userLocaleT = pack userLocale
+    let systemLocaleT = pack systemLocale
+    return [userLocaleT,systemLocaleT]
 
 -- END Windows --
 

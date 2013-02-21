@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, ForeignFunctionInterface #-}
 -----------------------------------------------------------------------------
 --
 -- Module      :  GetLocales
@@ -17,6 +17,7 @@ module GetLocales (
     getLocales
 ) where
 
+import Data.Text as T
 import Foreign
 import Foreign.C
 
@@ -48,6 +49,6 @@ systemDefaultLocaleName = allocaBytes maxLocaleBytes $ \ptr -> do
 getLocales = do
     userLocale <- userDefaultLocaleName
     systemLocale <- systemDefaultLocaleName
-    let userLocaleT = pack userLocale
-    let systemLocaleT = pack systemLocale
+    let userLocaleT = T.pack userLocale
+    let systemLocaleT = T.pack systemLocale
     return [userLocaleT,systemLocaleT]

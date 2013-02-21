@@ -17,12 +17,15 @@ module GetLocales (
     getLocales
 ) where
 
-import Data.Text (Text, pack, replace)
-import System.Environment (getEnv)
+import qualified Data.Text as T
+import System.Process(readProcess)
+
+charsToIgnore = "(),\""
+stripChars = T.pack . (filter . flip notElem) charsToIgnore
 
 -- Get locale, Mac OSX version --
 -- Note: There probably is a much better way to do this, but I can't figure out FFI with Cocoa.
 getLocales = do
-    lang <- getEnv "LANG"
-    let systemLocale = replace "_" "-" $ pack $ takeWhile (/= '.') lang
-    return [systemLocale]
+    syslangs <- readProcess "defaults" ["read","NSGlobalDomain","AppleLanguages"] []
+    let langs = T.words $ stripChars syslangs
+    return langs

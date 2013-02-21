@@ -18,4 +18,5 @@ executable IconStuff
     if os(windows)
         hs-source-dirs: src/Windows
     if os(darwin)
+        build-depends: process -any
         hs-source-dirs: src/MacOS

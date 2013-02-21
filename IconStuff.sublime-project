@@ -5,6 +5,10 @@
 			"path": "IconStuff"
 		}
 	],
+	"settings":
+	{
+		"translate_tabs_to_spaces": true
+	},
 	"build_systems":
 	[
 		{

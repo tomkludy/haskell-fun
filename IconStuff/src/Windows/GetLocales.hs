@@ -1,13 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 -----------------------------------------------------------------------------
 --
--- Module      :  Windows.GetLocales
+-- Module      :  GetLocales
 -- Copyright   :
 -- License     :  AllRightsReserved
 --
 -- Maintainer  :
 -- Stability   :
--- Portability :
+-- Portability : Windows only
 --
 -- |
 --

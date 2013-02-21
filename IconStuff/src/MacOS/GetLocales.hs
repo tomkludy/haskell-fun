@@ -1,13 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 -----------------------------------------------------------------------------
 --
--- Module      :  MacOS.GetLocales
+-- Module      :  GetLocales
 -- Copyright   :
 -- License     :  AllRightsReserved
 --
 -- Maintainer  :
 -- Stability   :
--- Portability :
+-- Portability : MacOS (darwin) only
 --
 -- |
 --

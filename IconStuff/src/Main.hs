@@ -23,12 +23,7 @@ import L10N
 
 -- Simple function to create a hello message.
 hola s = MsgHello s
-
 hello s = localize (hola s)
-
--- Tell QuickCheck that if you strip "Hello " from the start of
--- hello s you will be left with s (for any s).
---prop_hello s = stripPrefix "Hello " (hello s) == Just s
 
 -- Hello World
 exeMain = do

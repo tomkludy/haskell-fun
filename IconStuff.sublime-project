@@ -1,0 +1,18 @@
+{
+	"folders":
+	[
+		{
+			"path": "IconStuff"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Haskell (Cabal)",
+			"cmd": ["cabal", "install", "--user", "--disable-documentation"],
+			"file_regex": "^(...*?):([0-9]*):?([0-9]*)",
+			"selector": "source.haskell",
+			"working_dir": "${project_path:${folder}}/IconStuff"
+		}
+	]
+}

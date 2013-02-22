@@ -27,5 +27,4 @@ stripChars = T.pack . (filter . flip notElem) charsToIgnore
 -- Note: There probably is a much better way to do this, but I can't figure out FFI with Cocoa.
 getLocales = do
     syslangs <- readProcess "defaults" ["read","NSGlobalDomain","AppleLanguages"] []
-    let langs = T.words $ stripChars syslangs
-    return langs
+    return $ T.words $ stripChars syslangs

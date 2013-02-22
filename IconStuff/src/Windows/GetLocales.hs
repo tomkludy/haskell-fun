@@ -30,19 +30,19 @@ foreign import stdcall unsafe "GetSystemDefaultLocaleName"
 -- Prefers the user's locale, then the system's locale.
 
 maxLocaleChars = 85 -- Hardcoded constand in the Windows API
-maxLocaleBytes = 2*maxLocaleChars  -- UCS-2 encoded
+maxLocaleBytes = 2 * maxLocaleChars  -- UCS-2 encoded
 
 userDefaultLocaleName :: IO String
 userDefaultLocaleName = allocaBytes maxLocaleBytes $ \ptr -> do
     rc <- getUserDefaultLocaleName ptr maxLocaleChars
-    if (rc < 0)
+    if rc < 0
         then return "Bad data"
         else peekCWString ptr
 
 systemDefaultLocaleName :: IO String
 systemDefaultLocaleName = allocaBytes maxLocaleBytes $ \ptr -> do
     rc <- getSystemDefaultLocaleName ptr maxLocaleChars
-    if (rc < 0)
+    if rc < 0
         then return "Bad data"
         else peekCWString ptr
 
